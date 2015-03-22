@@ -3,8 +3,11 @@ FROM ubuntu:trusty
 
 MAINTAINER michael@snell.com
 
+# Hide some noise from apt
+ENV DEBIAN_FRONTEND noninteractive
+
 # Use add-apt-repository (which requires software-properties-common) to add webupd8team, since Java 8 is not available from
-# Ubuntu directly
+# Ubuntu directly, and the update and upgrade
 RUN apt-get -y install software-properties-common
 RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get -y update
@@ -15,3 +18,6 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
 RUN apt-get -y install oracle-java8-installer
 RUN apt-get -y install oracle-java8-set-default
 RUN update-java-alternatives -s java-8-oracle
+
+# Reset DEBIAN_FRONTEND
+ENV DEBIAN_FRONTEND=newt
