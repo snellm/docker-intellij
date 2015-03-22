@@ -1,3 +1,4 @@
 # Ignore IntelliJ directory and project files
 .idea
 *.iml
+*.ipr
