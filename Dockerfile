@@ -14,12 +14,12 @@ RUN apt-get -y update
 RUN apt-get -y upgrade
 
 # Install additional packages
-RUN apt-get -y sakura # Sakura xterm replacement
+RUN apt-get -y lxterminal # xterm replacement
 RUN apt-get -y vim # Vim editor
 RUN apt-get -y git # Git version control
 RUN apt-get -y mvn # Maven build tool
 
-# You know I'm right
+# Sensible defaults
 ln -s /usr/bin/vim /usr/bin/emacs
 
 # Install Java 8, accepting the license, and set up env variables and Java defaults
@@ -36,4 +36,5 @@ RUN update-java-alternatives -s java-8-oracle
 # Reset DEBIAN_FRONTEND
 ENV DEBIAN_FRONTEND=newt
 
-# TODO Start a terminal
+# Start an X terminal
+CMD lxterminal
