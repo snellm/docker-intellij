@@ -1,2 +1,3 @@
-# docker-ubuntu-vnc-java8-intellij
-Dockerfile for Ubuntu Java 8 IntelliJ with VNC
+# docker-intellij
+
+Dockerfile defining an IntelliJ IDEA dev environment
