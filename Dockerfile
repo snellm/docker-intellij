@@ -1,4 +1,4 @@
-# Based on Ubuntu 14.04 Trust Tahir base image
+# Based on Ubuntu 14.04 Trust Tahr base image
 FROM ubuntu:trusty
 
 MAINTAINER michael@snell.com
@@ -15,7 +15,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install lxterminal # xterm replace
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install vim # Vim editor
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install git # Git version control
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install maven # Maven build tool
-# TODO Chromium?
+# TODO Chrome stable?
 
 # Sensible defaults
 RUN ln -s /usr/bin/vim /usr/bin/emacs
@@ -27,21 +27,16 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install oracle-java8-set-default
 RUN update-java-alternatives -s java-8-oracle
 
 # Install IntelliJ IDEA and add convenience start script
-# TODO Use ADD instead of wget
-RUN wget http://download.jetbrains.com/idea/ideaIC-14.0.3.tar.gz -O /tmp/intellij.tar.gz -q && \
-    mkdir -p /opt/intellij && \
+ADD http://download.jetbrains.com/idea/ideaIC-14.0.3.tar.gz /tmp/intellij.tar.gz
+RUN mkdir -p /opt/intellij && \
     tar -xf /tmp/intellij.tar.gz --strip-components=1 -C /opt/intellij && \
     rm /tmp/intellij.tar.gz
 COPY idea.sh /usr/bin/idea
 
-# Docker file syntax highlighting for IntelliJ
-# TODO Needs to be done in a script since can't write to user home volume
-# wget -O ~/.IdeaIC14/config/filetypes/Dockerfile.xml https://raw.githubusercontent.com/masgari/docker-intellij-idea/master/Dockerfile.xml
-
 # Mark dev user home as data volume
 VOLUME /home/$USERNAME
 
-# Create dev user with dev password and grant passwordless sudo permission
+# Create "dev" user with "dev" password and grant passwordless sudo permission
 ENV USERNAME dev
 RUN adduser --disabled-password --gecos '' $USERNAME
 RUN echo dev:dev | chpasswd
