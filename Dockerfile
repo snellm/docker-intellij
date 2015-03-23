@@ -3,21 +3,18 @@ FROM ubuntu:trusty
 
 MAINTAINER michael@snell.com
 
-# Hide some noise from apt
-ENV DEBIAN_FRONTEND noninteractive
-
 # Use add-apt-repository (which requires software-properties-common) to add webupd8team, since Java 8 is not available
 # from Ubuntu directly, and then update and upgrade current packages
-RUN apt-get -y install software-properties-common
-RUN add-apt-repository ppa:webupd8team/java
-RUN apt-get -y update
-RUN apt-get -y upgrade
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common
+RUN DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:webupd8team/java
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y update
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
 
 # Install additional packages
-RUN apt-get -y install lxterminal # xterm replacement
-RUN apt-get -y install vim # Vim editor
-RUN apt-get -y install git # Git version control
-RUN apt-get -y install maven # Maven build tool
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install lxterminal # xterm replacement
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install vim # Vim editor
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install git # Git version control
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install maven # Maven build tool
 # TODO Chromium?
 
 # Sensible defaults
@@ -29,32 +26,29 @@ RUN apt-get -y install oracle-java8-installer
 RUN apt-get -y install oracle-java8-set-default
 RUN update-java-alternatives -s java-8-oracle
 
-# Install IntelliJ
+# Install IntelliJ IDEA and add convenience start script
 # TODO Use ADD instead of wget
 RUN wget http://download.jetbrains.com/idea/ideaIC-14.0.3.tar.gz -O /tmp/intellij.tar.gz -q && \
-    echo 'Installing IntelliJ IDEA' && \
     mkdir -p /opt/intellij && \
     tar -xf /tmp/intellij.tar.gz --strip-components=1 -C /opt/intellij && \
     rm /tmp/intellij.tar.gz
-# TODO Create idea command to run it
+COPY idea.sh /usr/bin/idea
 
-# TODO Docker file syntax highlighting
-# TODO Use ADD instead of wget
+# Docker file syntax highlighting for IntelliJ
+# TODO Needs to be done in a script since can't write to user home volume
 # wget -O ~/.IdeaIC14/config/filetypes/Dockerfile.xml https://raw.githubusercontent.com/masgari/docker-intellij-idea/master/Dockerfile.xml
-ADD https://raw.githubusercontent.com/masgari/docker-intellij-idea/master/Dockerfile.xml ~/.IdeaIC14/config/filetypes/Dockerfile.xml
-
-
-# Create dev user
-ENV USERNAME dev
-RUN adduser --disabled-password --gecos '' $USERNAME
 
 # Mark dev user home as data volume
 VOLUME /home/$USERNAME
 
-# Reset DEBIAN_FRONTEND
-ENV DEBIAN_FRONTEND=newt
+# Create dev user with dev password and grant passwordless sudo permission
+ENV USERNAME dev
+RUN adduser --gecos '' $USERNAME
+RUN echo dev:dev | chpasswd
+RUN echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN sudo adduser dev sudo
 
 # Start an X terminal as dev user
 USER $USERNAME
 WORKDIR /home/$USERNAME
-CMD lxterminal
+ENTRYPOINT lxterminal
