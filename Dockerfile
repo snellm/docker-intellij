@@ -18,6 +18,7 @@ RUN apt-get -y install lxterminal # xterm replacement
 RUN apt-get -y install vim # Vim editor
 RUN apt-get -y install git # Git version control
 RUN apt-get -y install maven # Maven build tool
+# TODO Chromium?
 
 # Sensible defaults
 RUN ln -s /usr/bin/vim /usr/bin/emacs
@@ -42,8 +43,18 @@ RUN wget http://download.jetbrains.com/idea/ideaIC-14.0.3.tar.gz -O /tmp/intelli
 # wget -O ~/.IdeaIC14/config/filetypes/Dockerfile.xml https://raw.githubusercontent.com/masgari/docker-intellij-idea/master/Dockerfile.xml
 ADD https://raw.githubusercontent.com/masgari/docker-intellij-idea/master/Dockerfile.xml ~/.IdeaIC14/config/filetypes/Dockerfile.xml
 
+
+# Create dev user
+ENV USERNAME dev
+RUN adduser --disabled-password --gecos '' $USERNAME
+
+# Mark dev user home as data volume
+VOLUME /home/$USERNAME
+
 # Reset DEBIAN_FRONTEND
 ENV DEBIAN_FRONTEND=newt
 
-# Start an X terminal
+# Start an X terminal as dev user
+USER $USERNAME
+WORKDIR /home/$USERNAME
 CMD lxterminal
