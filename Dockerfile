@@ -28,9 +28,16 @@ RUN apt-get -y install oracle-java8-installer
 RUN apt-get -y install oracle-java8-set-default
 RUN update-java-alternatives -s java-8-oracle
 
-# TODO intellij
+# Install IntelliJ
+# TODO Use ADD instead of wget
+RUN wget http://download.jetbrains.com/idea/ideaIC-14.0.3.tar.gz -O /tmp/intellij.tar.gz -q && \
+    echo 'Installing IntelliJ IDEA' && \
+    mkdir -p /opt/intellij && \
+    tar -xf /tmp/intellij.tar.gz --strip-components=1 -C /opt/intellij && \
+    rm /tmp/intellij.tar.gz
 
 # TODO Docker file syntax highlighting
+# TODO Use ADD instead of wget
 # wget -O ~/.IdeaIC14/config/filetypes/Dockerfile.xml https://raw.githubusercontent.com/masgari/docker-intellij-idea/master/Dockerfile.xml
 
 # Reset DEBIAN_FRONTEND
