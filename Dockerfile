@@ -22,8 +22,8 @@ RUN ln -s /usr/bin/vim /usr/bin/emacs
 
 # Install Java 8, accepting the license, and set up env variables and Java defaults
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
-RUN apt-get -y install oracle-java8-installer
-RUN apt-get -y install oracle-java8-set-default
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install oracle-java8-installer
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install oracle-java8-set-default
 RUN update-java-alternatives -s java-8-oracle
 
 # Install IntelliJ IDEA and add convenience start script
@@ -43,7 +43,7 @@ VOLUME /home/$USERNAME
 
 # Create dev user with dev password and grant passwordless sudo permission
 ENV USERNAME dev
-RUN adduser --gecos '' $USERNAME
+RUN adduser --disabled-password --gecos '' $USERNAME
 RUN echo dev:dev | chpasswd
 RUN echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 RUN sudo adduser dev sudo
