@@ -35,10 +35,12 @@ RUN wget http://download.jetbrains.com/idea/ideaIC-14.0.3.tar.gz -O /tmp/intelli
     mkdir -p /opt/intellij && \
     tar -xf /tmp/intellij.tar.gz --strip-components=1 -C /opt/intellij && \
     rm /tmp/intellij.tar.gz
+# TODO Create idea command to run it
 
 # TODO Docker file syntax highlighting
 # TODO Use ADD instead of wget
 # wget -O ~/.IdeaIC14/config/filetypes/Dockerfile.xml https://raw.githubusercontent.com/masgari/docker-intellij-idea/master/Dockerfile.xml
+ADD https://raw.githubusercontent.com/masgari/docker-intellij-idea/master/Dockerfile.xml ~/.IdeaIC14/config/filetypes/Dockerfile.xml
 
 # Reset DEBIAN_FRONTEND
 ENV DEBIAN_FRONTEND=newt
