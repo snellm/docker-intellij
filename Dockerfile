@@ -14,13 +14,13 @@ RUN apt-get -y update
 RUN apt-get -y upgrade
 
 # Install additional packages
-RUN apt-get -y lxterminal # xterm replacement
-RUN apt-get -y vim # Vim editor
-RUN apt-get -y git # Git version control
-RUN apt-get -y mvn # Maven build tool
+RUN apt-get -y install lxterminal # xterm replacement
+RUN apt-get -y install vim # Vim editor
+RUN apt-get -y install git # Git version control
+RUN apt-get -y install maven # Maven build tool
 
 # Sensible defaults
-ln -s /usr/bin/vim /usr/bin/emacs
+RUN ln -s /usr/bin/vim /usr/bin/emacs
 
 # Install Java 8, accepting the license, and set up env variables and Java defaults
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
@@ -30,7 +30,7 @@ RUN update-java-alternatives -s java-8-oracle
 
 # TODO intellij
 
-# TODO Docker file syntax highligting
+# TODO Docker file syntax highlighting
 # wget -O ~/.IdeaIC14/config/filetypes/Dockerfile.xml https://raw.githubusercontent.com/masgari/docker-intellij-idea/master/Dockerfile.xml
 
 # Reset DEBIAN_FRONTEND
