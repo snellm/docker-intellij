@@ -16,7 +16,7 @@ is disabled - this is the default on MobaXTerm, but eg XMing needs to be run wit
 - Ensure X client is running.
 - Run "Boot2Docker Start" - this will open a Boot2Docker console.
 - Run the following command in the Boot2Docker console, substituting &lt;DISPLAY&gt; and &lt;USERNAME&gt;:<br/>
-`docker run -d -e DISPLAY=<DISPLAY>; -v /c/Users/<USERNAME>/Docker-IntelliJ:/home/dev snellm/intellij`
+`docker run -d -e DISPLAY=<DISPLAY>; -v /c/Users/<USERNAME>/Docker-IntelliJ:/home/dev -name intellij snellm/intellij`
   - &lt;DISPLAY&gt; is the X client display address. Typically this will be your workstation IP address plus ":0.0".
   - &lt;USERNAME&gt; is your Windows username. This path is used to persist the VM "dev" users home directory between
   restarts.
@@ -24,9 +24,9 @@ is disabled - this is the default on MobaXTerm, but eg XMing needs to be run wit
 
 # Notes
 
-- The VM is based on Ubuntu 14.04 (Trust Tahr) with Oracle Java 8 and IntelliJ IDEA 14.0 Community Edition added.
+- The VM is based on Ubuntu 14.04 (Trusty Tahr) with Oracle Java 8 and IntelliJ IDEA 14.1 Community Edition added.
 - Development is as the "dev" user, password "dev".
 - Passwordless sudo rights have been granted to the the "dev" user, but note that any changes made outside of the "dev"
 users home directory will be lost between restarts.
-- The "dev" users home directory (/home/dev) is mapped to the path set when starting, so will be preserved between
-restarts.
+- The "dev" users home directory (/home/dev) is mapped to the host path set when starting, so will be preserved between
+restarts and even if Docker is for Windows is uninstalled/reinstalled.

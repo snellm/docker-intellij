@@ -26,7 +26,7 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
     update-java-alternatives -s java-8-oracle
 
 # Install IntelliJ IDEA and add convenience start script
-RUN wget http://download.jetbrains.com/idea/ideaIC-14.0.3.tar.gz -O /tmp/intellij.tar.gz -q && \
+RUN wget http://download.jetbrains.com/idea/ideaIC-14.1.tar.gz -O /tmp/intellij.tar.gz -q && \
     mkdir -p /opt/intellij && \
     tar -xf /tmp/intellij.tar.gz --strip-components=1 -C /opt/intellij && \
     rm /tmp/intellij.tar.gz
