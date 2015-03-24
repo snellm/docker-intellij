@@ -1,1 +1,1 @@
-Docker Ubuntu VM based IntelliJ Java 8 development environment
+Docker Ubuntu based IntelliJ Java 8 development environment

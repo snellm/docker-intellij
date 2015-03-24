@@ -1,6 +1,6 @@
 # Overview
 
-This project defines a Docker image that allows development in an Ubuntu VM using IntelliJ IDEA, Java 8, Git and Maven,
+This project defines a Docker image that allows development in an Ubuntu VM using IntelliJ IDEA, Java 8, Git, Maven etc,
 accessed via X (typically from a Windows workstation).
 
 # Running from Windows

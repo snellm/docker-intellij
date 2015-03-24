@@ -9,11 +9,11 @@ RUN apt-get -y install software-properties-common && \
     apt-get -y update && \
     DEBIAN_FRONTEND=noninteractive apt-get -y upgrade && \
     DEBIAN_FRONTEND=noninteractive apt-get -y -q install \
-        lxterminal \
-        vim \
+        firefox \
         git \
-        maven && \ 
-        # TODO Chrome stable?
+        lxterminal \
+        maven \
+        vim && \
     apt-get clean && \
     ln -s /usr/bin/vim /usr/bin/emacs
 
