@@ -7,7 +7,8 @@ MAINTAINER Michael Snell <michael@snell.com>
 RUN apt-get -y install software-properties-common && \
     add-apt-repository ppa:webupd8team/java && \
     apt-get -y update && \
-    DEBIAN_FRONTEND=noninteractive apt-get -y upgrade && \
+    DEBIAN_FRONTEND=noninteractive apt-get -y -q dist-upgrade && \
+    DEBIAN_FRONTEND=noninteractive apt-get -y -q upgrade && \
     DEBIAN_FRONTEND=noninteractive apt-get -y -q install \
         firefox \
         git \
