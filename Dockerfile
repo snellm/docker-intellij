@@ -1,8 +1,6 @@
 # Based on Ubuntu 14.04 Trust Tahr base image
 FROM ubuntu:trusty
 
-# TODO Set up automated build in Docker Hub
-
 MAINTAINER Michael Snell <michael@snell.com>
 
 # Configure apt to make Oracle Java available, upgrade, update, and install additional packages
