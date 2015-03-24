@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #
-# Convinience start script for IntelliJ IDEA
+# Convenience start script for IntelliJ IDEA
 #
 
 # Install syntax highlighting for Docker files if not present
