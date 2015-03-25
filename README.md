@@ -15,12 +15,13 @@ is disabled - this is the default on MobaXTerm, but eg XMing needs to be run wit
 
 - Ensure X client is running.
 - Run "Boot2Docker Start" - this will open a Boot2Docker console.
-- Run the following command in the Boot2Docker console, substituting &lt;DISPLAY&gt; and &lt;USERNAME&gt;:<br/>
-`docker run -d -e DISPLAY=<DISPLAY>; -v /c/Users/<USERNAME>/Docker-IntelliJ:/home/dev -name intellij snellm/intellij`
+- Run the following command in the Boot2Docker console, substituting &lt;DISPLAY&gt; and &lt;USERNAME&gt;:    
+`docker run -d -e DISPLAY=<DISPLAY> -v /c/Users/<USERNAME>/Docker-IntelliJ:/home/dev -name intellij snellm/intellij`
   - &lt;DISPLAY&gt; is the X client display address. Typically this will be your workstation IP address plus ":0.0".
   - &lt;USERNAME&gt; is your Windows username. This path is used to persist the VM "dev" users home directory between
   restarts.
-- A terminal window should open on your desktop from the VM. To start IntelliJ IDEA, run "idea".
+- A terminal window should open on your desktop from the VM. To start IntelliJ IDEA, run "idea". To start Google Chrome,
+run "chrome".
 
 # Notes
 
@@ -30,3 +31,10 @@ is disabled - this is the default on MobaXTerm, but eg XMing needs to be run wit
 users home directory will be lost between restarts.
 - The "dev" users home directory (/home/dev) is mapped to the host path set when starting, so will be preserved between
 restarts and even if Docker is for Windows is uninstalled/reinstalled.
+
+# Caveats
+
+- Not extensively tested.
+- If running inside Boot2Docker on Windows:
+  - Memory is limited to the size of the Boot2Docker VirtualBox VM (default to 2GB).
+  - An issue with mounting /home/dev to Windows causes problems with Chrome and Firefox profile creation.
